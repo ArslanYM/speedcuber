@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import { Appbar } from "./components/custom/Appbar";
-import { Footer } from "./components/Footer";
+import { Appbar } from "../components/custom/Appbar";
+import { Footer } from "../components/custom/Footer";
 export default function Document() {
   return (
     <Html lang="en">

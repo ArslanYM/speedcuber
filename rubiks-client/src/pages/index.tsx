@@ -1,8 +1,8 @@
 import { Inter } from "next/font/google";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 export default function Home() {
   return (
@@ -16,10 +16,16 @@ export default function Home() {
           />
           <div className="text-center lg:w-2/3 w-full">
             <h1 className="text-3xl font-semibold font-mono text-black">
-              begin your cubing journey now. 
+              begin your cubing journey now.
             </h1>
-            <Button variant="link" className="animate-bounce  text-black font-extrabold">Start Learning</Button> 
-            
+            <Link href={"/guide"}>
+              <Button
+                variant="link"
+                className="animate-bounce  text-black font-extrabold"
+              >
+                Start Learning
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
