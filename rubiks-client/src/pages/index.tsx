@@ -21,7 +21,7 @@ export default function Home() {
             <Link href={"/guide"}>
               <Button
                 variant="link"
-                className="animate-bounce  text-black font-extrabold"
+                className=" text-xl animate-bounce  text-black font-mono"
               >
                 Start Learning
               </Button>

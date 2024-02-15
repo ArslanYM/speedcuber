@@ -1,15 +1,13 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import { Appbar } from "../components/custom/Appbar";
-import { Footer } from "../components/custom/Footer";
+import { Toaster } from "@/components/ui/sonner"; 
 export default function Document() {
   return (
     <Html lang="en">
       <Head />
       <body>
-        <Appbar />
         <Main />
         <NextScript />
-        <Footer />
+        <Toaster />
       </body>
     </Html>
   );
