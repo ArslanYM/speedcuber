@@ -10,16 +10,16 @@ import {
 export default function AlgorithmCard(props: any) {
   return (
     <>
-      <Card className="m-2">
+      <Card className="m-2 items-center justify-center text-center  ">
         <CardHeader>
           <CardTitle>{props.title}</CardTitle>
           <CardDescription>{props.description}</CardDescription>
         </CardHeader>
-        <CardContent className="items-center justify-center ">
+        <CardContent className=" ">
           <img className="w-52" src={props.image} />
         </CardContent>
         <CardFooter
-          className="cursor-pointer"
+          className="cursor-pointer  items-center justify-center text-center"
           onClick={() => {
             //download link
             {

@@ -8,19 +8,19 @@ const  listOfAlgorithms = [
   {
     title: "F2L",
     description: " First 2 Layers",
-    image: "imagelink",
+    image: "./f2l.png",
     dowloadLink: "",
   },
   {
     title: "OLL",
     description: " Orienting Last Layer",
-    image: "imagelink",
+    image: "./oll.png",
     dowloadLink: "",
   },
   {
     title: "PLL",
     description: "Permuting Last Layer",
-    image: "imagelink",
+    image: "./pll.png",
     dowloadLink: "",
   },
 ];
