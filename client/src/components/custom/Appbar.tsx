@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
-
 export const Appbar: React.FC = () => {
   return (
     <>
@@ -56,6 +55,7 @@ export const Appbar: React.FC = () => {
           </li>
         </ul>
       </nav>
+
     </>
   );
 };
