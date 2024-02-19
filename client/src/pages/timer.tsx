@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 const Timer: React.FC = () => {
   //Stopwatch logic
@@ -8,10 +8,9 @@ const Timer: React.FC = () => {
   const [running, setRunning] = useState<boolean>(false);
   const [prevTime, setPrevTime] = useState<number>(0);
 
-
+  let interval: NodeJS.Timeout;
   //starts timer
   useEffect(() => {
-    let interval;
     if (running) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);
@@ -24,7 +23,7 @@ const Timer: React.FC = () => {
 
   //Detect space key
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event : KeyboardEvent) => {
       if (event.keyCode === 32) {
         if (running) {
           setRunning(false);
@@ -37,14 +36,15 @@ const Timer: React.FC = () => {
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     // Cleanup the event listener when component unmounts
     //TODO : fix evenlistener issue to stop timer on space click
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  // [running, time]
 
   return (
     <section className=" text-gray-600 font-mono">
@@ -73,9 +73,12 @@ const Timer: React.FC = () => {
               </Button>
             </div>
           ) : (
-            <h1 onClick={()=>{
-              setRunning(true);
-            }} className="cursor-pointer text-3xl font-semibold font-mono text-black">
+            <h1
+              onClick={() => {
+                setRunning(true);
+              }}
+              className="cursor-pointer text-3xl font-semibold font-mono text-black"
+            >
               Click here or press space key to start.
             </h1>
           )}
