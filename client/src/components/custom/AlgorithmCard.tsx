@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 
 export default function AlgorithmCard(props: any) {
+
   return (
     <>
       <Card className="m-2 items-center justify-center text-center  ">
@@ -20,14 +21,8 @@ export default function AlgorithmCard(props: any) {
         </CardContent>
         <CardFooter
           className="cursor-pointer  items-center justify-center text-center"
-          onClick={() => {
-            //download link
-            {
-              props.link;
-            }
-          }}
         >
-          <p>Download PDF</p>
+          <a href={props.downloadLink}>Download PDF</a>
           <svg
             width="15"
             height="15"

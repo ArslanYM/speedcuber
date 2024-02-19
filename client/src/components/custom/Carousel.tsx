@@ -6,8 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import YouTube from "react-youtube";
-//TODO: size of card component inside carousel should be the same as md screen size.
+
 export default function CarouselComponent() {
   return (
     <>
@@ -15,23 +14,25 @@ export default function CarouselComponent() {
         opts={{
           align: "start",
         }}
-        className="w-full max-w-sm"
+        className="w-full max-w-2xl "
       >
         {/* {make content auto scroll} */}
         <CarouselContent>
-          {Array.from({ length: 10 }).map((_, index) => (
+          {youtubeTutorials.map((obj, index) => (
             <CarouselItem key={index} className="">
               <div className="p-1 ">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <iframe
-                    className=""
-                      src="https://www.youtube.com/embed/r9jwGansp1E"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </CardContent>
-                </Card>
+                
+                  <Card className="">
+                    <CardContent className="flex h-[450px] items-center justify-center p-6">
+                      <iframe
+                        className=" w-full h-full object-cover rounded-md"
+                        src={obj.link}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </CardContent>
+                  </Card>
+                
               </div>
             </CarouselItem>
           ))}
@@ -44,3 +45,14 @@ export default function CarouselComponent() {
 }
 
 
+const youtubeTutorials = [
+  {
+    link: "https://www.youtube.com/embed/7Ron6MN45LY",
+  },
+  {
+    link: "https://www.youtube.com/embed/7Ron6MN45LY",
+  },
+  {
+    link: "https://www.youtube.com/embed/7Ron6MN45LY",
+  },
+];

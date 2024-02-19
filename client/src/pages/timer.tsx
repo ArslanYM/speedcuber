@@ -7,6 +7,9 @@ const Timer: React.FC = () => {
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
   const [prevTime, setPrevTime] = useState<number>(0);
+
+
+  //starts timer
   useEffect(() => {
     let interval;
     if (running) {
@@ -29,6 +32,7 @@ const Timer: React.FC = () => {
           setTime(0);
         } else {
           setRunning(true);
+          setPrevTime(0);
         }
       }
     };
@@ -69,7 +73,9 @@ const Timer: React.FC = () => {
               </Button>
             </div>
           ) : (
-            <h1 className="text-3xl font-semibold font-mono text-black">
+            <h1 onClick={()=>{
+              setRunning(true);
+            }} className="cursor-pointer text-3xl font-semibold font-mono text-black">
               Click here or press space key to start.
             </h1>
           )}
@@ -82,10 +88,10 @@ const Timer: React.FC = () => {
         />
         {!prevTime ? (
           <>
-            <p>Test your cubing skills!</p>
+            <p className="text-xl">Test your cubing skills!</p>
           </>
         ) : (
-          <p>
+          <p className="text-xl">
             Woah! You solved it in{" "}
             <span>
               {("0" + Math.floor((prevTime / 60000) % 60)).slice(-2)}:
