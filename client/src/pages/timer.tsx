@@ -23,7 +23,7 @@ const Timer: React.FC = () => {
 
   //Detect space key
   useEffect(() => {
-    const handleKeyDown = (event : KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.keyCode === 32) {
         if (running) {
           setRunning(false);
@@ -91,10 +91,10 @@ const Timer: React.FC = () => {
         />
         {!prevTime ? (
           <>
-            <p className="text-xl">Test your cubing skills!</p>
+            <p className="text-2xl">Test your cubing skills!</p>
           </>
         ) : (
-          <p className="text-xl">
+          <p className="text-2xl">
             Woah! You solved it in{" "}
             <span>
               {("0" + Math.floor((prevTime / 60000) % 60)).slice(-2)}:

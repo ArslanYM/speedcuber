@@ -50,9 +50,11 @@ const youtubeTutorials = [
     link: "https://www.youtube.com/embed/7Ron6MN45LY",
   },
   {
-    link: "https://www.youtube.com/embed/7Ron6MN45LY",
+    link: "https://www.youtube.com/embed/v8Fdu8to0fs",
   },
   {
-    link: "https://www.youtube.com/embed/7Ron6MN45LY",
+    link: "https://www.youtube.com/embed/f54VHqhxa-Y",
   },
 ];
+
+
