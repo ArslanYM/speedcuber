@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export default function Accordian(props) {
+export default function Accordian(props:any) {
   return (
     <div>
       <Accordion type="multiple">

@@ -23,11 +23,6 @@ export const Appbar: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link href={"/faq"}>
-              <Button variant="link">FAQ's</Button>
-            </Link>
-          </li>
-          <li>
             <Link href={"/timer"}>
               <Button variant="link">Timer</Button>
             </Link>
