@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 //auth
 import { useSession, signIn } from "next-auth/react";
 import Link from "next/link";
+import { z, ZodError } from "zod";
 
 //TODO: fix register page after successfull registration
 export default function Register() {
@@ -20,13 +21,46 @@ export default function Register() {
   return (
     <section className=" text font-mono">
       <div className="container mx-auto flex  items-center justify-center flex-col">
-        {session?.user ? <RegisterPage/> : <RegisterForm />}
+        {session?.user ? <RegisterPage /> : <RegisterForm />}
       </div>
     </section>
   );
 }
 
 function RegisterForm() {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPass, setConfirmPass] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+
+  function isPasswordCorrect() {
+    if (password === confirmPass) {
+      return true;
+    }
+
+    return false;
+  }
+  const registrationSchema = z.object({
+    username: z.string().min(5).max(30),
+    email: z.string().email(),
+    password: z.string().min(6).max(20),
+  });
+
+  function validateRegistrationData(data: object) {
+    try {
+      registrationSchema.parse(data);
+      //TODO: api call for manual registration and sending data to backend 
+      return null;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        alert(error.errors.map((e) => e.message))
+        return null;
+      } else {
+        throw error;
+      }
+    }
+  }
+
   return (
     <>
       <Card className="w-[350px]">
@@ -39,29 +73,54 @@ function RegisterForm() {
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your name" />
+                <Input
+                  id="name"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  placeholder="Your name"
+                />
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" placeholder="example@gmail.com" />
+                <Input
+                  id="email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  placeholder="example@gmail.com"
+                />
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   placeholder="*********"
-                  hidden
-                  aria-hidden
+                  type="password"
                 />
                 <Label htmlFor="password">Confirm Password</Label>
                 <Input
                   id="cPassword"
+                  onChange={(e) => {
+                    setConfirmPass(e.target.value);
+                    //set red color if not true
+                  }}
                   placeholder="*********"
-                  hidden
-                  aria-hidden
+                  type="password"
                 />
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex justify-center flex-col">
-          <Button>Sign Up</Button>
+          <Button
+            onClick={() => {
+              isPasswordCorrect()
+                ? validateRegistrationData({ username, email, password })
+                : alert("passwords do not match");
+            }}
+          >
+            Sign Up
+          </Button>
           <Label className="m-2"> OR </Label>
           <Button
             onClick={() => {
