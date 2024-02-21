@@ -1,7 +1,17 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import { signOut, useSession } from "next-auth/react";
+
 export const Appbar: React.FC = () => {
+  const { data: session } = useSession();
   return (
     <>
       <nav className="font-mono px-4 md:px-32 lg:px-52 py-4 md:py-6 lg:py-8 flex flex-col md:flex-row justify-between items-center">
@@ -27,6 +37,7 @@ export const Appbar: React.FC = () => {
               <Button variant="link">Timer</Button>
             </Link>
           </li>
+
           <li className="animate-bounce">
             <a
               href="https://github.com/arslanYM/rubiks-algo "
@@ -48,9 +59,47 @@ export const Appbar: React.FC = () => {
               </svg>
             </a>
           </li>
+          <li>
+            {session?.user ? (
+              <UserImage />
+            ) : (
+              <Link href="/register">
+                <Button variant="link">Login/SignUp</Button>
+              </Link>
+            )}
+          </li>
         </ul>
       </nav>
-
     </>
   );
 };
+
+function UserImage() {
+  const { data: session } = useSession();
+  return (
+    <>
+      <div className="w-[10px]">
+        <Popover>
+          <PopoverTrigger>
+            <Avatar>
+              <AvatarImage src={session?.user?.image} alt="@user" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="flex justify-center ">
+              <Button
+                onClick={() => {
+                  signOut();
+                }}
+                variant={"ghost"}
+              >
+                Log Out
+              </Button>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </>
+  );
+}

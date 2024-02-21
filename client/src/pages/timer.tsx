@@ -28,6 +28,7 @@ const Timer: React.FC = () => {
         if (running) {
           setRunning(false);
           setPrevTime(time);
+          toast(`Your speed was ${prevTime} minutes`);
           setTime(0);
         } else {
           setRunning(true);
@@ -64,8 +65,6 @@ const Timer: React.FC = () => {
                 onClick={() => {
                   setRunning(false);
                   setPrevTime(time);
-                  //TODO: toast not working
-                  toast(`Your speed was ${prevTime} minutes`);
                   setTime(0);
                 }}
               >
