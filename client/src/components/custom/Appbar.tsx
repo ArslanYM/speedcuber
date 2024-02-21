@@ -82,7 +82,7 @@ function UserImage() {
         <Popover>
           <PopoverTrigger>
             <Avatar>
-              <AvatarImage src={session?.user?.image} alt="@user" />
+              <AvatarImage src={session?.user?.image?? ''} alt="@user" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </PopoverTrigger>
