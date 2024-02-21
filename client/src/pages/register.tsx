@@ -13,6 +13,9 @@ import { Label } from "@/components/ui/label";
 //auth
 import { useSession, signIn } from "next-auth/react";
 
+
+
+//TODO: fix register page after successfull registration
 export default function Register() {
   const { data: session } = useSession();
   return (
