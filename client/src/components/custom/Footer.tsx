@@ -24,7 +24,7 @@ export const Footer = () => {
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
             <a
               className="text-gray-900 cursor-pointer"
-              href="https://github.com/ArslanYM"
+              href="https://github.com/ArslanYM/speedcuber"
             >
               <svg
                 width="20"
