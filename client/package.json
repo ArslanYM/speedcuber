@@ -29,6 +29,7 @@
     "react-dom": "^18",
     "react-youtube": "^10.1.0",
     "sonner": "^1.4.0",
+    "sr-scrambler": "^2.0.2",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"

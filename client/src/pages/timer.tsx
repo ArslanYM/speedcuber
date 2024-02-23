@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
+import * as Scrambler from "sr-scrambler";
 
 const Timer: React.FC = () => {
   //Stopwatch logic
+  const [scramble, setScramble] = useState<String>("");
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
   const [prevTime, setPrevTime] = useState<number>(0);
@@ -11,6 +13,8 @@ const Timer: React.FC = () => {
   let interval: NodeJS.Timeout;
   //starts timer
   useEffect(() => {
+    let newScram = Scrambler.cube(3, 15);
+    setScramble(newScram);
     if (running) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);
@@ -38,8 +42,6 @@ const Timer: React.FC = () => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-
-    // Cleanup the event listener when component unmounts
     //TODO : fix evenlistener issue to stop timer on space click
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -47,61 +49,50 @@ const Timer: React.FC = () => {
   }, []);
   // [running, time]
 
+  // GENERATE scramble function
+
   return (
     <section className=" text-gray-600 font-mono">
       <div className="container mx-auto flex  items-center justify-center flex-col">
         <div className="text-center lg:w-2/3 w-full">
           {running ? (
-            <div className="pt-2">
-              <p className="text-5xl  text-black  font-extrabold">
-                <span>
-                  {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
-                </span>
-                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-                <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
-              </p>
-              <Button
-                variant={"ghost"}
-                onClick={() => {
-                  setRunning(false);
-                  setPrevTime(time);
-                  setTime(0);
-                }}
-              >
-                Stop
-              </Button>
-            </div>
+            <>
+              <div className="pt-32 pb-32">
+                <p className="  text-black  font-extrabold">
+                  <span className="text-9xl">
+                    {Math.floor((time / 1000) % 60)}
+                  </span>
+                  <span className="text-5xl">
+                    :{("0" + ((time / 10) % 100)).slice(-2)}
+                  </span>
+                </p>
+              </div>
+            </>
           ) : (
-            <h1
-              onClick={() => {
-                setRunning(true);
-              }}
-              className="cursor-pointer text-3xl font-semibold font-mono text-black"
-            >
-              Click here or press space key to start.
-            </h1>
+            <>
+              <h1 className="cursor-pointer text-4xl font-semibold font-mono text-black">
+                {scramble}
+              </h1>
+              <div className="p-16">
+                <p className="  text-black  font-extrabold">
+                  <span className="text-9xl">
+                    {Math.floor((time / 1000) % 60)}
+                  </span>
+                  <span className="text-5xl">
+                    :{("0" + ((time / 10) % 100)).slice(-2)}
+                  </span>
+                </p>
+              </div>
+
+              <h1
+                onClick={() => setRunning(true)}
+                className="cursor-pointer text-3xl font-medium font-mono text-black"
+              >
+                Click here or press space key to start timer
+              </h1>
+            </>
           )}
         </div>
-
-        <img
-          className="lg:w-96 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
-          alt="hero"
-          src="logo.svg"
-        />
-        {!prevTime ? (
-          <>
-            <p className="text-2xl">Test your cubing skills!</p>
-          </>
-        ) : (
-          <p className="text-2xl">
-            Woah! You solved it in{" "}
-            <span>
-              {("0" + Math.floor((prevTime / 60000) % 60)).slice(-2)}:
-            </span>
-            <span>{("0" + Math.floor((prevTime / 1000) % 60)).slice(-2)}:</span>
-            <span>{("0" + ((prevTime / 10) % 100)).slice(-2)}</span> minutes.
-          </p>
-        )}
       </div>
     </section>
   );
