@@ -1,20 +1,16 @@
-import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
-import { toast } from "sonner";
-import * as Scrambler from "sr-scrambler";
+import generateShuffle from "../../listOfScrambles";
 
 const Timer: React.FC = () => {
   //Stopwatch logic
-  const [scramble, setScramble] = useState<String>("");
+  const [scramble,setScramble]= useState<String>("");
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
-  const [prevTime, setPrevTime] = useState<number>(0);
+  const [previousTime, setPreviousTime] = useState<number>(0);
 
   let interval: NodeJS.Timeout;
   //starts timer
   useEffect(() => {
-    let newScram = Scrambler.cube(3, 15);
-    setScramble(newScram);
     if (running) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);
@@ -26,17 +22,17 @@ const Timer: React.FC = () => {
   }, [running]);
 
   //Detect space key
+
   useEffect(() => {
+    setScramble(generateShuffle);
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.keyCode === 32) {
         if (running) {
           setRunning(false);
-          setPrevTime(time);
-          toast(`Your speed was ${prevTime} minutes`);
-          setTime(0);
+          setPreviousTime(time);
         } else {
           setRunning(true);
-          setPrevTime(0);
+          setPreviousTime(0);
         }
       }
     };
@@ -47,9 +43,6 @@ const Timer: React.FC = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  // [running, time]
-
-  // GENERATE scramble function
 
   return (
     <section className=" text-gray-600 font-mono">
@@ -73,7 +66,7 @@ const Timer: React.FC = () => {
               <h1 className="cursor-pointer text-4xl font-semibold font-mono text-black">
                 {scramble}
               </h1>
-              <div className="p-16">
+              <div className="p-16 m-4">
                 <p className="  text-black  font-extrabold">
                   <span className="text-9xl">
                     {Math.floor((time / 1000) % 60)}
