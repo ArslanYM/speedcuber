@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import generateShuffle from "../../scrambleGenerator";
-import { useToast } from "@/components/ui/use-toast";
 
 const Timer: React.FC = () => {
-  const { toast } = useToast();
-
-  //Stopwatch logic
   const [scramble, setScramble] = useState<string>("");
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
@@ -28,6 +24,7 @@ const Timer: React.FC = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         if (running) {
+          //TODO: store time in db for graph
           setRunning(false);
           setTime(0);
           setScramble(generateShuffle());
@@ -61,7 +58,7 @@ const Timer: React.FC = () => {
               </div>
             </>
           ) : (
-            <>
+            <div className="m-2">
               <h1 className="text-4xl font-semibold font-mono text-black">
                 {scramble}
               </h1>
@@ -84,7 +81,7 @@ const Timer: React.FC = () => {
               >
                 Click here or press space key to start timer
               </h1>
-            </>
+            </div>
           )}
         </div>
       </div>

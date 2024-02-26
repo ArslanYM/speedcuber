@@ -113,6 +113,7 @@ function RegisterForm() {
         </CardContent>
         <CardFooter className="flex justify-center flex-col">
           <Button
+          variant={"ghost"}
             onClick={() => {
               isPasswordCorrect()
                 ? validateRegistrationData({ username, email, password })
@@ -123,6 +124,7 @@ function RegisterForm() {
           </Button>
           <Label className="m-2"> OR </Label>
           <Button
+            variant={"ghost"}
             onClick={() => {
               signIn();
             }}
