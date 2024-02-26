@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import generateShuffle from "../../listOfScrambles";
+import generateShuffle from "../../scrambleGenerator";
+import { useToast } from "@/components/ui/use-toast";
 
 const Timer: React.FC = () => {
+  const { toast } = useToast();
+
   //Stopwatch logic
-  const [scramble,setScramble]= useState<String>("");
+  const [scramble, setScramble] = useState<string>("");
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
-  const [previousTime, setPreviousTime] = useState<number>(0);
 
   let interval: NodeJS.Timeout;
-  //starts timer
+
   useEffect(() => {
     if (running) {
       interval = setInterval(() => {
@@ -21,28 +23,25 @@ const Timer: React.FC = () => {
     return () => clearInterval(interval);
   }, [running]);
 
-  //Detect space key
-
   useEffect(() => {
-    setScramble(generateShuffle);
+    setScramble(generateShuffle());
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.keyCode === 32) {
+      if (event.code === "Space") {
         if (running) {
           setRunning(false);
-          setPreviousTime(time);
+          setTime(0);
+          setScramble(generateShuffle());
         } else {
           setRunning(true);
-          setPreviousTime(0);
+          setScramble(generateShuffle());
         }
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
-    //TODO : fix evenlistener issue to stop timer on space click
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [running]);
 
   return (
     <section className=" text-gray-600 font-mono">
@@ -50,7 +49,7 @@ const Timer: React.FC = () => {
         <div className="text-center lg:w-2/3 w-full">
           {running ? (
             <>
-              <div className="pt-32 pb-32">
+              <div className="pt-32 pb-32 ">
                 <p className="  text-black  font-extrabold">
                   <span className="text-9xl">
                     {Math.floor((time / 1000) % 60)}
@@ -63,10 +62,10 @@ const Timer: React.FC = () => {
             </>
           ) : (
             <>
-              <h1 className="cursor-pointer text-4xl font-semibold font-mono text-black">
+              <h1 className="text-4xl font-semibold font-mono text-black">
                 {scramble}
               </h1>
-              <div className="p-16 m-4">
+              <div className="p-12 m-6">
                 <p className="  text-black  font-extrabold">
                   <span className="text-9xl">
                     {Math.floor((time / 1000) % 60)}
@@ -78,8 +77,10 @@ const Timer: React.FC = () => {
               </div>
 
               <h1
-                onClick={() => setRunning(true)}
-                className="cursor-pointer text-3xl font-medium font-mono text-black"
+                onClick={() => {
+                  setRunning(true);
+                }}
+                className="animate-bounce cursor-pointer text-3xl font-medium font-mono text-black"
               >
                 Click here or press space key to start timer
               </h1>

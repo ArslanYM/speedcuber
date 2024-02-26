@@ -8,7 +8,7 @@ export const Footer = () => {
         <div className="container px-4 md:px-32 lg:px-52 py-4 md:py-6 lg:py-8 flex flex-col md:flex-row justify-between items-center">
           <a className="flex  font-mono items-center md:justify-start justify-center text-gray-900">
             <img src="logo.svg" className="w-10" alt="  " />
-            <span className="ml-3 text-xl">Rubiks Algo</span>
+            <span className="ml-3 text-xl font-semibold ">Speed Cuber</span>
           </a>
           <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
             © 2024

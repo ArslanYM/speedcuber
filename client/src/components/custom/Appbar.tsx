@@ -22,7 +22,7 @@ export const Appbar: React.FC = () => {
               variant="link"
               className="font-md font-semibold font-mono text-xl"
             >
-              Rubiks Algo
+              Speed Cuber
             </Button>
           </Link>
         </div>
