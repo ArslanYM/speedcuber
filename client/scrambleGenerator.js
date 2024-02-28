@@ -1,5 +1,5 @@
 export default function generateShuffle() {
-  const moves = ["F", "B", "L", "R", "U", "D"]; // Possible moves
+  const  moves = ["F", "B", "L", "R", "U", "D"]; // Possible moves
   const modifiers = ["", "'", "2"]; // Move modifiers: clockwise, counterclockwise, double
 
   let shuffle = [];
