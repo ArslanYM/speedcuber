@@ -10,8 +10,9 @@ import {
 import { Button } from "../ui/button";
 import React, { useState } from "react";
 import axios from "axios";
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "../ui/label";
+import OpenAI from "openai";
 
 const Chatbot = () => {
   return (
@@ -36,39 +37,39 @@ const Chatbot = () => {
 };
 
 function ActiveCard() {
+  const openai = new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  });
+
   const [input, setInput] = useState("");
   const [response, setResponse] = useState<String>("");
   return (
     <>
       {response ? (
-        <div className="font-mono">
-        {response}
-        </div>
+        <div className="font-mono">{response}</div>
       ) : (
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            // TODO : fix quota issue 
+            // TODO : fix quota issue
             try {
-              const response = await axios.post(
-                "https://api.openai.com/v1/completions",
-                {
-                  model: "gpt-3.5-turbo",
-                  prompt: input,
-                  max_tokens: 150,
-                  temperature: 0.5,
-                  n: 1,
-                  stop: ["\n"],
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+              const response = await openai.chat.completions.create({
+                messages: [
+                  {
+                    role: "system",
+                    content:
+                      "You are a helpful assistant designed to output JSON.",
                   },
-                }
-              );
-
-              setResponse(response.data.choices[0].text);
+                  {
+                    role: "user",
+                    content: input,
+                  },
+                ],
+                model: "gpt-3.5-turbo-0125",
+                response_format: { type: "json_object" },
+              });
+              console.log(response.choices[0].message.content);
+              setResponse(response?.choices[0]?.message?.content ?? "");
             } catch (error) {
               console.error(error);
               setResponse("An error occurred. Please try again later.");

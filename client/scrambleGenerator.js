@@ -8,7 +8,6 @@ export default function generateShuffle() {
   for (let i = 0; i < 20; i++) {
     let move = moves[Math.floor(Math.random() * moves.length)]; // Randomly select a move
     if (prevMove === move) {
-      // If the previous move is the same as the current move, select a different move
       move = moves[Math.floor(Math.random() * moves.length)];
     }
 
