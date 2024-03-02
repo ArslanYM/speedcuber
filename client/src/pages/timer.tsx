@@ -11,8 +11,6 @@ const Timer: React.FC = () => {
   let interval: NodeJS.Timeout;
 
   useEffect(() => {
-    console.log("re render");
-    
     if (running) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);

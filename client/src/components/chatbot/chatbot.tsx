@@ -46,11 +46,11 @@ function ActiveCard() {
       history: [
         {
           role: "user",
-          parts: "Hello, I want to learn more about Rubik's cube",
+          parts: "Hello, I want you to answer only those questions which are related to rubik's cube and no other questions should be answered",
         },
         {
           role: "model",
-          parts: "Great to meet you. What would you like to know?",
+          parts: "Great to meet you. I will only answer questions related to a rubik's cube. What would you like to know about Rubik's cube?",
         },
       ],
       // generationConfig: {
