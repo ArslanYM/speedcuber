@@ -1,8 +1,3 @@
----
-title: Speed Cuber
-description: An open-source project built with Next.js 13, Tailwind CSS, and Shadcn. Powered by Gemini AI, this project provides Rubik's Cube tutorials, a timer, guides, and answers questions related to cubing.
----
-
 # Welcome to the Rubik's Cube Project!
 
 This project is built with [Next.js 13](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), and [Shadcn](https://shadcn.com/). It is powered by [Gemini AI](https://gemini.ai/), providing tutorials, a timer, guides, and answers to questions related to cubing.
@@ -25,14 +20,18 @@ Learn how to solve the Rubik's Cube with step-by-step tutorials.
 ### Timer
 
 Time yourself solving the Rubik's Cube and track your progress.
+![timer](https://raw.githubusercontent.com/ArslanYM/speedcuber/main/images/timer.png)
 
 ### Guides
 
 Find helpful guides and resources to improve your cubing skills.
+![guide](https://raw.githubusercontent.com/ArslanYM/speedcuber/main/images/guide.png)
+
 
 ### FAQ
 
 Get answers to frequently asked questions about cubing.
+![chatbot](https://raw.githubusercontent.com/ArslanYM/speedcuber/main/images/chat.png)
 
 ## Contribute
 
