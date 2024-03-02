@@ -9,10 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import React, { useState } from "react";
-import axios from "axios";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "../ui/label";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const Chatbot = () => {
   return (
@@ -37,39 +36,50 @@ const Chatbot = () => {
 };
 
 function ActiveCard() {
-  const openai = new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  });
-
   const [input, setInput] = useState("");
   const [response, setResponse] = useState<String>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  async function generate() {
+    const genAI = new GoogleGenerativeAI(
+      process.env.NEXT_PUBLIC_GOOGLE_AI_KEY ?? ""
+    );
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const chat = model.startChat({
+      history: [
+        {
+          role: "user",
+          parts: "Hello, I want to learn more about Rubik's cube",
+        },
+        {
+          role: "model",
+          parts: "Great to meet you. What would you like to know?",
+        },
+      ],
+      // generationConfig: {
+      //   maxOutputTokens: 50,
+      // },
+    });
+    const prompt = input;
+
+    const result = await chat.sendMessage(prompt)
+    setIsLoading(false);
+    setResponse(result.response.text);
+  }
+
   return (
     <>
       {response ? (
-        <div className="font-mono">{response}</div>
+        <div className="font-mono p-2 overflow-y-auto h-52 ">{response}</div>
+      ) : isLoading ? (
+        <p className="font-mono animate-pulse">Thinking...</p>
       ) : (
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            // TODO : fix quota issue
+            setIsLoading(true);
             try {
-              const response = await openai.chat.completions.create({
-                messages: [
-                  {
-                    role: "system",
-                    content:
-                      "You are a helpful assistant designed to output JSON.",
-                  },
-                  {
-                    role: "user",
-                    content: input,
-                  },
-                ],
-                model: "gpt-3.5-turbo-0125",
-                response_format: { type: "json_object" },
-              });
-              console.log(response.choices[0].message.content);
-              setResponse(response?.choices[0]?.message?.content ?? "");
+              generate();
             } catch (error) {
               console.error(error);
               setResponse("An error occurred. Please try again later.");

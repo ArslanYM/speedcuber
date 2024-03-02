@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import generateShuffle from "../../scrambleGenerator";
+import { timeStamp } from "console";
 
 const Timer: React.FC = () => {
   const [scramble, setScramble] = useState<string>("");
   const [time, setTime] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
+  const [lastTime, setLastTime] = useState<number>(0);
 
   let interval: NodeJS.Timeout;
 
@@ -13,9 +15,11 @@ const Timer: React.FC = () => {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);
       }, 10);
-    } else if (!running) {
+    }
+    if (!running) {
       clearInterval(interval);
     }
+
     return () => clearInterval(interval);
   }, [running]);
 
@@ -24,7 +28,7 @@ const Timer: React.FC = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         if (running) {
-          //TODO: store time in db for graph
+          setLastTime(time);
           setRunning(false);
           setTime(0);
           setScramble(generateShuffle());
@@ -40,13 +44,21 @@ const Timer: React.FC = () => {
     };
   }, [running]);
 
+
+
+
+  //  function handleLastTime(time: number) : void {
+  //    console.log(Math.floor((time / 1000) % 60) + ":" + `${("0" + ((time / 10) % 100)).slice(-2)}` )
+  // }
+
+  
   return (
     <section className=" text-gray-600 font-mono">
       <div className="container mx-auto flex  items-center justify-center flex-col">
         <div className="text-center lg:w-2/3 w-full">
           {running ? (
             <>
-              <div className="pt-32 pb-32 ">
+              <div className="pt-32 pb-32">
                 <p className="  text-black  font-extrabold">
                   <span className="text-9xl">
                     {Math.floor((time / 1000) % 60)}
