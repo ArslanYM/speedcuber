@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import generateShuffle from "../../scrambleGenerator";
-import { timeStamp } from "console";
 
+//TODO : save timer time for current solve
 const Timer: React.FC = () => {
   const [scramble, setScramble] = useState<string>("");
   const [time, setTime] = useState<number>(0);
@@ -11,6 +11,8 @@ const Timer: React.FC = () => {
   let interval: NodeJS.Timeout;
 
   useEffect(() => {
+    console.log("re render");
+    
     if (running) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 10);
@@ -44,12 +46,6 @@ const Timer: React.FC = () => {
     };
   }, [running]);
 
-
-
-
-  //  function handleLastTime(time: number) : void {
-  //    console.log(Math.floor((time / 1000) % 60) + ":" + `${("0" + ((time / 10) % 100)).slice(-2)}` )
-  // }
 
   
   return (
