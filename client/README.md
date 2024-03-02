@@ -1,40 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+---
+title: Speed Cuber
+description: An open-source project built with Next.js 13, Tailwind CSS, and Shadcn. Powered by Gemini AI, this project provides Rubik's Cube tutorials, a timer, guides, and answers questions related to cubing.
+---
+
+# Welcome to the Rubik's Cube Project!
+
+This project is built with [Next.js 13](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), and [Shadcn](https://shadcn.com/). It is powered by [Gemini AI](https://gemini.ai/), providing tutorials, a timer, guides, and answers to questions related to cubing.
 
 ## Getting Started
 
-First, run the development server:
+To get started with the Rubik's Cube Project, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository: `git clone https://github.com/ArslanYM/speedcuber`
+2. Move to client directory: `cd client`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm run dev`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Tutorials
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Learn how to solve the Rubik's Cube with step-by-step tutorials.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Timer
 
-:This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Time yourself solving the Rubik's Cube and track your progress.
 
-## Learn More
+### Guides
 
-To learn more about Next.js, take a look at the following resources:
+Find helpful guides and resources to improve your cubing skills.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### FAQ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Get answers to frequently asked questions about cubing.
 
-## Deploy on Vercel
+## Contribute
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributions are welcome! If you have an idea for a new feature, want to report a bug, or would like to improve the documentation, feel free to open an issue or submit a pull request.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute this project as you see fit.
+
+---
+
