@@ -45,7 +45,7 @@ export const Appbar: React.FC = () => {
               <UserImage />
             ) : (
               <Link href="/register">
-                <Button variant="link">Login/SignUp</Button>
+                <Button variant="link">SignUp</Button>
               </Link>
             )}
           </li>
