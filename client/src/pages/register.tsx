@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import RegisterPage from "../components/custom/RegisterPage";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 //auth
 import { useSession, signIn } from "next-auth/react";
-import Link from "next/link";
 import { z, ZodError } from "zod";
 
 //TODO: fix register page after successfull registration
@@ -49,11 +49,11 @@ function RegisterForm() {
   function validateRegistrationData(data: object) {
     try {
       registrationSchema.parse(data);
-      //TODO: api call for manual registration and sending data to backend 
+      //TODO: api call for manual registration and sending data to backend
       return null;
     } catch (error) {
       if (error instanceof ZodError) {
-        alert(error.errors.map((e) => e.message))
+        alert(error.errors.map((e) => e.message));
         return null;
       } else {
         throw error;
@@ -69,51 +69,49 @@ function RegisterForm() {
           <CardDescription>Create a SpeedCuber account.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
-                  placeholder="Your name"
-                />
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  placeholder="example@gmail.com"
-                />
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  placeholder="*********"
-                  type="password"
-                />
-                <Label htmlFor="password">Confirm Password</Label>
-                <Input
-                  id="cPassword"
-                  onChange={(e) => {
-                    setConfirmPass(e.target.value);
-                    //set red color if not true
-                  }}
-                  placeholder="*********"
-                  type="password"
-                />
-              </div>
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                placeholder="Your name"
+              />
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                placeholder="example@gmail.com"
+              />
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                placeholder="*********"
+                type="password"
+              />
+              <Label htmlFor="password">Confirm Password</Label>
+              <Input
+                id="cPassword"
+                onChange={(e) => {
+                  setConfirmPass(e.target.value);
+                  //set red color if not true
+                }}
+                placeholder="*********"
+                type="password"
+              />
             </div>
-          </form>
+          </div>
         </CardContent>
         <CardFooter className="flex justify-center flex-col">
           <Button
-          variant={"ghost"}
+            variant={"ghost"}
             onClick={() => {
               isPasswordCorrect()
                 ? validateRegistrationData({ username, email, password })
@@ -149,32 +147,5 @@ function RegisterForm() {
         </CardFooter>
       </Card>
     </>
-  );
-}
-
-function RegisterPage() {
-  return (
-    <section className=" text-gray-600 body-font">
-      <div className="container mx-auto flex  items-center justify-center flex-col">
-        <img
-          className="lg:w-96 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
-          alt="hero"
-          src="logo.svg"
-        />
-        <div className="text-center lg:w-2/3 w-full">
-          <h1 className="text-3xl font-semibold font-mono text-black">
-            begin your cubing journey now.
-          </h1>
-          <Link href={"/guide"}>
-            <Button
-              variant="link"
-              className=" text-xl animate-bounce  text-black font-mono"
-            >
-              Start Learning
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </section>
   );
 }

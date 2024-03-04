@@ -44,16 +44,19 @@ const Timer: React.FC = () => {
     };
   }, [running]);
 
-
-  
   return (
-    <section className=" text-gray-600 font-mono">
+    <section className="text-gray-600 font-mono">
       <div className="container mx-auto flex  items-center justify-center flex-col">
         <div className="text-center lg:w-2/3 w-full">
           {running ? (
             <>
               <div className="pt-32 pb-32">
-                <p className="  text-black  font-extrabold">
+                <p
+                  className="  text-black  font-extrabold cursor-pointer"
+                  onClick={() => {
+                    setRunning(false);
+                  }}
+                >
                   <span className="text-9xl">
                     {Math.floor((time / 1000) % 60)}
                   </span>

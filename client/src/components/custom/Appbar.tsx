@@ -16,7 +16,10 @@ export const Appbar: React.FC = () => {
     <>
       <nav className="font-mono px-4 md:px-32 lg:px-52 py-4 md:py-6 lg:py-8 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center">
+          <Link href={"/"}>
           <img src="logo.svg" alt="Company Logo" className="w-10 h-auto mr-2" />
+          </Link>
+          
           <Link href={"/"}>
             <Button
               variant="link"

@@ -39,7 +39,7 @@ function ActiveCard() {
 
   async function generate() {
     const genAI = new GoogleGenerativeAI(
-      process.env.NEXT_PUBLIC_GOOGLE_AI_KEY ?? ""
+      process.env.NEXT_PUBLIC_GOOGLE_AI_KEY?? ''
     );
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const chat = model.startChat({
