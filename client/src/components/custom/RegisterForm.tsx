@@ -1,3 +1,4 @@
+//ui
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,32 +10,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+//react
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import { z, ZodError } from "zod";
-import { db } from "../../lib/firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
 import Link from "next/link";
 
+//zod
+import { z, ZodError } from "zod";
+
+//firebase
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../lib/firebase";
+
 export default function RegisterForm() {
-  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPass, setConfirmPass] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  //firebase
-  const UsersCollectionRef = collection(db, "users");
   async function validateDataCreateUser(data: object) {
     try {
       registrationSchema.parse(data);
-      await addDoc(UsersCollectionRef, {
-        username: username,
-        email: email,
-        password: password,
-      }).then(() => {
-        window.location.href = "/login";
-      });
-
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        (value) => {
+          value.user.getIdToken().then((res) => {
+            localStorage.setItem("token", res);
+          });
+        }
+      );
+      alert("User Registered successfully.");
       return null;
     } catch (error) {
       if (error instanceof ZodError) {
@@ -53,7 +57,6 @@ export default function RegisterForm() {
     return false;
   }
   const registrationSchema = z.object({
-    username: z.string().min(5).max(30),
     email: z.string().email(),
     password: z.string().min(6).max(20),
   });
@@ -68,14 +71,6 @@ export default function RegisterForm() {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-                placeholder="Your name"
-              />
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -110,7 +105,7 @@ export default function RegisterForm() {
             variant={"ghost"}
             onClick={() => {
               isPasswordCorrect()
-                ? validateDataCreateUser({ username, email, password })
+                ? validateDataCreateUser({ email, password })
                 : alert("passwords do not match");
             }}
           >
