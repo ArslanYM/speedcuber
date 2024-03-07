@@ -16,6 +16,8 @@ export const Appbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   useEffect(()=>{
     if(localStorage.getItem('token')!=null){
+      console.log(localStorage.getItem('token'));
+      
       setIsLoggedIn(true)
     }
   },[])

@@ -9,13 +9,29 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Login() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  async function handleLogIn(){
+    await signInWithEmailAndPassword(auth,email,password).then((userCredential)=>{
+      if(userCredential.user){
+        setIsLoggedIn(true)
+        window.location.href = '/'
+      }
+    }).catch((e)=>{
+      alert(e.message)
+    })
+  }
+
   return (
     <>
       <div className="font-mono container mx-auto flex  items-center justify-center flex-col">
@@ -50,11 +66,15 @@ export default function Login() {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center flex-col">
-            <Button variant={"ghost"} onClick={() => {}}>
+            <Button variant={"ghost"} onClick={() => {
+              handleLogIn()
+            }}>
               Log In
             </Button>
             <Label className="m-2"> OR </Label>
-            <Button variant={"ghost"} onClick={() => {}}>
+            <Button variant={"ghost"} onClick={() => {
+              signIn()
+            }}>
               Log In with Github{" "}
               <svg
                 className="ml-2"
