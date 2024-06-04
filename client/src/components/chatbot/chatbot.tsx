@@ -16,6 +16,7 @@ const Chatbot = () => {
       <div className="w-[10px]">
         <Dialog>
           <DialogTrigger>
+            <h1>Question?</h1>
             <Avatar>
               <AvatarImage src={"logo.svg"} alt="@user" />
               <AvatarFallback>Chatbot</AvatarFallback>
